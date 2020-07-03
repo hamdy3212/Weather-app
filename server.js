@@ -1,7 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {
-
-
 };
 
 // Require Express to run server and routes
@@ -9,7 +7,6 @@ const express    = require('express'),
       bodyParser = require('body-parser'),
       app        = express(),
       cors       = require('cors');
-
       
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
@@ -22,7 +19,6 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
 app.get('/data', (req, res)=>{
     res.send(projectData);
@@ -34,7 +30,6 @@ app.post('/', (req, res)=>{
     projectData.date = data.newDate;
     projectData.userRes = data.userRes;
 });
-
 
 app.listen(3000, ()=>{
     console.log("server is running");

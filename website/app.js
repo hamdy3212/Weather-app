@@ -1,7 +1,7 @@
 /* Global Variables */
 const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const zip = document.getElementById('zip');
-const key = '&appid=1fd37d6ed1c96152b606908afb3bed9d';
+const key = '&appid=1fd37d6ed1c96152b606908afb3bed9d&units=metric';
 const generateButton = document.getElementById('generate');
 const feelings = document.getElementById('feelings');
 
@@ -13,7 +13,7 @@ const getWeather = async (zip) => {
     return data;
   }
   catch(error){
-    console.log(error);
+    document.getElementById('temp').textContent = "BADADAD";
   }
 }
 
@@ -40,23 +40,23 @@ const updateUI = async ( ) => {
   const request = await fetch('/data');
   try{
     const allData = await request.json();
-    document.getElementById('date').textContent = 'time: ' + allData.date;
-    document.getElementById('temp').textContent = 'temp: ' + allData.temp;
-    document.getElementById('content').textContent = 'feeling: ' + allData.userRes;
+    document.getElementById('date').textContent = 'Date: ' + allData.date;
+    document.getElementById('temp').textContent = 'Temp: ' + allData.temp + '°C';
+    document.getElementById('content').textContent = 'Your Feeling: ' + allData.userRes;
   }catch(error){
-    console.log(error);
+    document.getElementById('temp').textContent = "BADADAD";
   }
 }
 
 // ADD EVENT LISTNER ON GENERATE BUTTON
 generateButton.addEventListener('click', ()=>{
-  getWeather(zip.value)
-  .then( data =>{
-    const temp = data.main.temp;
-    const userRes = feelings.value;
-    postData('/', {temp, newDate, userRes});
-    updateUI();
-  })
+    getWeather(zip.value)
+    .then( data =>{
+      const temp = data.main.temp;
+      const userRes = feelings.value;
+      postData('/', {temp, newDate, userRes});
+      updateUI();
+    })
 });
 
 
